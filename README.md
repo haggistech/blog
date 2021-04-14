@@ -3,11 +3,10 @@
 
 I followed the tutorial on this to learn more about nextjs, I plan on adding to it as i learn
 
-<div align="center">
-  
-<h3 align="center">Features</h3>
 
-<div align="center">
+<h3>Features</h3>
+
+
 
   - 🐇 [Fast](https://github.com/fastify/benchmarks#benchmarks) and light without [bulky](https://bundlephobia.com/result?p=express@4.17.1) Express.js.
   - ✨ Full [API Routes](https://nextjs.org/blog/next-9#api-routes) implementation and 👻 Serverless ready
@@ -18,7 +17,7 @@ I followed the tutorial on this to learn more about nextjs, I plan on adding to 
 
 </div>
 
-<h3 align="center">To-Do</h3>
+<h3>To-Do</h3>
 
 - [ ] Authentication via OAuth (Google, Facebook, etc.)
 
