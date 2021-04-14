@@ -1,5 +1,4 @@
 [![Next.js](https://assets.zeit.co/image/upload/v1538361091/repositories/next-js/next-js.png)](https://nextjs.org)
-
 <h2 align="center">Next.js + MongoDB</h2>
 
 I followed the tutorial on this to learn more about nextjs, I plan on adding to it as i learn
