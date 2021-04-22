@@ -27,7 +27,14 @@ function Post({ post }) {
       </style>
       <div>
       <p>
-          <b>{post.title}</b>
+
+      <Link href={`/post/${post._id}`}>
+        <a style={{ display: 'inline-flex', alignItems: 'center', color: 'black' }}>
+        <b>{post.title}</b>
+        </a>
+      </Link>
+
+
         </p>
         <p>
           {post.content}
@@ -39,9 +46,21 @@ function Post({ post }) {
           <Link href={`/user/${user._id}`}>
             <a style={{ display: 'inline-flex', alignItems: 'center', color: 'black' }}>
               
-            <small>{user.name}</small>
+            <small>{user.name} </small>
             </a>
           </Link>
+          
+                    
+        )}
+          {user && (
+          <Link href={`/comments/${user._id}`}>
+            <a style={{ display: 'inline', align: 'right', color: 'black' }}>
+              
+           &nbsp; - <small>Comments(0)</small>
+            </a>
+          </Link>
+          
+                    
         )}
       </div>
     </>

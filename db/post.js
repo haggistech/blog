@@ -26,3 +26,10 @@ export async function insertPost(db, { title, content, creatorId }) {
     createdAt: new Date(),
   }).then(({ ops }) => ops[0]);
 }
+
+
+export async function findPostById(db, postId) {
+  return db.collection('posts').findOne({
+    _id: postId,
+  }).then((post) => post || null);
+}

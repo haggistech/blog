@@ -20,18 +20,9 @@ const IndexPage = () => {
         `}
       </style>
       <div style={{ marginBottom: '2rem' }}>
-        <h2>
-          Hello,
-          {' '}
-          {user ? user.name : 'There'}
-          !
-        </h2>
-        <p>Welcome to Miks App</p>
+        <p>Hello, Welcome to Miks Blog</p>
       </div>
       <div>
-        <h3>
-          All Posts....
-        </h3>
         <PostEditor />
         <Posts />
       </div>

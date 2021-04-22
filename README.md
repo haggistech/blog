@@ -21,6 +21,9 @@ I followed the tutorial on this to learn more about nextjs, I plan on adding to 
 
 <h3 align="center">To-Do</h3>
 
+- [ ] Usergroups (Admin, Mod, Writer, etc)
+- [ ] Edit Posts
+- [ ] Comments System
 - [ ] Authentication via OAuth (Google, Facebook, etc.)
 
 </div>

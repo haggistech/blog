@@ -118,11 +118,14 @@ export default function Layout({ children }) {
             margin-top: 1rem;
             padding: 3rem;
             color: #888;
+            position: fixed; 
+            bottom: 0px; 
+            width: 100%;
           }
         `}
       </style>
       <Head>
-        <title>This is Miks App</title>
+        <title>Miks Blog</title>
         <meta
           key="viewport"
           name="viewport"
@@ -132,7 +135,7 @@ export default function Layout({ children }) {
           name="description"
           content="nextjs-mongodb-app is a continously developed app built with Next.JS and MongoDB. This project goes further and attempts to integrate top features as seen in real-life apps."
         />
-        <meta property="og:title" content="This is Miks App" />
+        <meta property="og:title" content="Miks Blog" />
         <meta
           property="og:description"
           content="nextjs-mongodb-app is a continously developed app built with Next.JS and MongoDB. This project goes further and attempts to integrate top features as seen in real-life apps."
@@ -144,9 +147,10 @@ export default function Layout({ children }) {
       </Head>
       <header>
         <nav>
+        
           <Link href="/">
             <a>
-              <h1>This is Miks App</h1>
+            <img width="75" height="75" src="/logo.png" />
             </a>
           </Link>
           <div>
@@ -162,7 +166,8 @@ export default function Layout({ children }) {
             ) : (
               <>
                 <Link href={`/user/${user._id}`}>
-                  <a>Profile</a>
+                  
+                  <a><img width="20" height="20" style={{ borderRadius: '50%', objectFit: 'cover', marginRight: '0.5rem' }} src={user.profilePicture} alt={user.name} />{user.name}</a>
                 </Link>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a tabIndex={0} role="button" onClick={handleLogout}>
