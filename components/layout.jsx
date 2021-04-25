@@ -166,12 +166,16 @@ export default function Layout({ children }) {
             ) : (
               <>
                 <Link href={`/user/${user._id}`}>
-                  
                   <a><img width="20" height="20" style={{ borderRadius: '50%', objectFit: 'cover', marginRight: '0.5rem' }} src={user.profilePicture} alt={user.name} />{user.name}</a>
                 </Link>
+                &nbsp;&nbsp;&nbsp;|
+                <Link href={`#`}>
+                <a>{user.usergroup} menu</a>
+                </Link>
+                &nbsp;&nbsp;&nbsp;|
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a tabIndex={0} role="button" onClick={handleLogout}>
-                  Logout
+                Logout
                 </a>
               </>
             )}

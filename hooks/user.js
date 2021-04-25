@@ -11,3 +11,9 @@ export function useUser(id) {
   const { data } = useSWR(`/api/users/${id}`, fetcher, { revalidateOnFocus: false });
   return data?.user;
 }
+
+export function CurrentUser() {
+  const { data } = useSWR('/api/user', fetcher);
+  const user = data?.user;
+  return [user];
+}

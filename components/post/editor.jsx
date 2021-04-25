@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
-import { useCurrentUser } from '@/hooks/index';
+import { useCurrentUser, adminUser } from '@/hooks/index';
 
 export default function PostEditor() {
   const [user] = useCurrentUser();
-
+  
   const [msg, setMsg] = useState(null);
 
-  if (!user) {
+      if (!user) {
     return (
-      <div style={{ color: '#555', textAlign: 'center' }}>
-        You need to Register or Sign In to post!
+        <div style={{ color: '#555', textAlign: 'center' }}>
+        You need to Register or Sign In to post comments!
       </div>
     );
   }
+
+  
+
+  if (user.usergroup != "Admin") {
+    return (
+      <div></div>
+    );
+  }
+
 
   async function hanldeSubmit(e) {
     e.preventDefault();

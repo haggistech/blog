@@ -11,56 +11,64 @@ function Post({ post }) {
     <>
       <style jsx>
         {`
-          div {
-            box-shadow: 0 5px 10px rgba(0,0,0,0.12);
+          #post {
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
             padding: 1.5rem;
             margin-bottom: 0.5rem;
             transition: box-shadow 0.2s ease 0s;
           }
-          div:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+          #post:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
           }
           small {
             color: #777;
           }
         `}
       </style>
-      <div>
-      <p>
-
-      <Link href={`/post/${post._id}`}>
-        <a style={{ display: 'inline-flex', alignItems: 'center', color: 'black' }}>
-        <b>{post.title}</b>
-        </a>
-      </Link>
-
-
-        </p>
+      <div id="post">
         <p>
-          {post.content}
+          <Link href={`/post/${post._id}`}>
+            <a
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                color: "black",
+              }}
+            >
+              <b>{post.title}</b>
+            </a>
+          </Link>
         </p>
-        <small>{new Date(post.createdAt).toLocaleString()} -           
-        {' '}
-          <span role="img" aria-label="Edit">📝</span>  - Posted By: </small>
-          {user && (
+        <p>{post.content}</p>
+        <small>
+          {new Date(post.createdAt).toLocaleString("en-GB", {
+            timeZone: "Europe/London",
+          })}{" "}
+          -{" "}
+          <span role="img" aria-label="Edit">
+            📝
+          </span>{" "}
+          - Posted By:{" "}
+        </small>
+        {user && (
           <Link href={`/user/${user._id}`}>
-            <a style={{ display: 'inline-flex', alignItems: 'center', color: 'black' }}>
-              
-            <small>{user.name} </small>
+            <a
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                color: "black",
+              }}
+            >
+              <small>{user.name} </small>
             </a>
           </Link>
-          
-                    
         )}
-          {user && (
+        {user && (
           <Link href={`/comments/${user._id}`}>
-            <a style={{ display: 'inline', align: 'right', color: 'black' }}>
-              
-           &nbsp; - <small>Comments(0)</small>
+            <a style={{ display: "inline", align: "right", color: "black" }}>
+              &nbsp; - <small>Comments(0)</small>
             </a>
           </Link>
-          
-                    
         )}
       </div>
     </>
