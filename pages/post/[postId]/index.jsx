@@ -5,18 +5,19 @@ import Error from 'next/error';
 import { all } from '@/middlewares/index';
 import { useCurrentUser } from '@/hooks/index';
 import Posts from '@/components/post/posts';
-import { extractUser } from '@/lib/api-helpers';
-import { findUserById } from '@/db/index';
-import { defaultProfilePicture } from '@/lib/default';
 import { findPostById } from '@/db/index';
+import { getComments } from '@/db/index';
 import { useUser } from '@/hooks/index';
 
-export default function PostPage({ post, }) {
+export default function PostPage({ post, comments}) {
   if (!post) return <Error statusCode={404} />;
   const { title, content, _id } = post || {};
+  const { postId, creatorId, comment, CommentCreated } = comments || {};
   const user = useUser(post.creatorId);
   const [currentUser] = useCurrentUser();
   const isCurrentUser = currentUser?._id === post.creatorId;
+  console.log({post});
+  console.log({comments});
   return (
     <>
       <style jsx>
@@ -78,31 +79,21 @@ export default function PostPage({ post, }) {
             <h2>{title}</h2>
 
           <p>{content}</p>
-          <p>Posted {new Date(post.createdAt).toLocaleString()} by {user.name}</p>
+          <p>Posted {new Date(post.createdAt).toLocaleString()} by </p>
         </section>
       </div>
 
-      <div id="comment" style={{ display: 'flex', alignItems: 'center' }}>
-        <section>
 
-          <p>Comment 1</p>
-          <p>Posted {new Date(post.createdAt).toLocaleString()}</p>
+          {comments.map((comment) =>
+                <div id="comment" style={{ display: 'flex', alignItems: 'center' }}>
+                <section>
+                <p>{comment.comment}</p>
+                <p>Posted {new Date(comment.CommentCreated).toLocaleString()}</p>
         </section>
       </div>
-      <div id="comment" style={{ display: 'flex', alignItems: 'center' }}>
-        <section>
+          )}
+          
 
-          <p>Comment 2</p>
-          <p>Posted {new Date(post.createdAt).toLocaleString()}</p>
-        </section>
-      </div>
-      <div id="comment" style={{ display: 'flex', alignItems: 'center' }}>
-        <section>
-
-          <p>Comment 3</p>
-          <p>Posted {new Date(post.createdAt).toLocaleString()}</p>
-        </section>
-      </div>
     </>
   );
 }
@@ -110,7 +101,8 @@ export default function PostPage({ post, }) {
 export async function getServerSideProps(context) {
   await all.run(context.req, context.res);
   const post = await findPostById(context.req.db, context.params.postId);
-  
+  const comments = await getComments(context.req.db, context.params.postId, post._id);
   if (!post) context.res.statusCode = 404;
-  return { props: { post } };
+  return { props: { post, comments } };
 }
+
