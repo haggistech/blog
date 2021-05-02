@@ -68,11 +68,19 @@ export default function PostPage({ post, comments}) {
           small {
             color: #777;
           }
+          a {
+            color: #777;
+          }
         `}
       </style>
       <Head>
         <title>{title}</title>
       </Head>
+      <Link href="/">
+            <a>
+            Return to Index
+            </a>
+          </Link>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <section>
 
