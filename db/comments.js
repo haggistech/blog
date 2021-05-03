@@ -2,17 +2,11 @@ import { nanoid } from 'nanoid';
 
 export async function getComments(db, from = new Date(), by, limit) {
   return db
-    .collection('posts')
+    .collection('comments')
     .find({
-      // Pagination: Fetch posts from before the input date or fetch from newest
-      ...(from && {
-        createdAt: {
-          $lte: from,
-        },
-      }),
-      ...(by && { creatorId: by }),
+      ...(by && { postId: by }),
     })
-    .sort({ createdAt: -1 })
+    .sort({ CommentCreated: -1 })
     .limit(limit || 10)
     .toArray();
 }

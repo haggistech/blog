@@ -93,7 +93,7 @@ export default function PostPage({ post, comments}) {
 
 
           {comments.map((comment) =>
-                <div id="comment" style={{ display: 'flex', alignItems: 'center' }}>
+                <div id="comment" key="{comment._id}" style={{ display: 'flex', alignItems: 'center' }}>
                 <section>
                 <p>{comment.comment}</p>
                 <p>Posted {new Date(comment.CommentCreated).toLocaleString()}</p>
