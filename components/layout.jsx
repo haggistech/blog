@@ -30,7 +30,11 @@ export default function Layout({ children }) {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
               'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
               'Helvetica Neue', sans-serif;
-            background-color: #fff;
+            background-color: #f1f1f1;
+            padding: 20px;
+            background: #f1f1f1;
+            box-sizing: border-box;
+}
           }
           h2 {
             color: #333;
@@ -112,15 +116,12 @@ export default function Layout({ children }) {
             max-width: 1040px;
             margin: 0 auto;
           }
-          footer {
+          /* Footer */
+          .footer {
+            padding: 20px;
             text-align: center;
-            font-size: 0.8rem;
-            margin-top: 1rem;
-            padding: 3rem;
-            color: #888;
-            position: fixed; 
-            bottom: 0px; 
-            width: 100%;
+            margin-top: 20px;
+            font-size: 8px;
           }
         `}
       </style>
@@ -184,11 +185,9 @@ export default function Layout({ children }) {
       </header>
 
       <main>{children}</main>
-      <footer>
-        <p>
-          c/o Haggistech
-        </p>
-      </footer>
+      <div class="footer">
+  <h2>c/o Mik (Haggistech)</h2>
+</div>
     </>
   );
 };

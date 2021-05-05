@@ -17,48 +17,48 @@ function Post({ post }) {
             margin-bottom: 0.5rem;
             transition: box-shadow 0.2s ease 0s;
           }
-          #post:hover {
+          #card:hover {
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
           }
           small {
             color: #777;
           }
-          .parent {
-            display: grid;
-            grid-template-columns: repeat(5, 2fr);
-            grid-template-rows: repeat(5, 2fr);
-            grid-column-gap: 0px;
-            grid-row-gap: 10px;
+          /* Header/Blog Title */
+          #header {
+            padding: 30px;
+            font-size: 40px;
+            text-align: center;
+            background: white;
           }
-
-          #div1 {
-            grid-area: 1 / 1 / 4 / 4;
-          }
-          #div2 {
-            grid-area: 1 / 1 / 2 / 4;
-
-          }
-          #div3 {
-            grid-area: 2 / 1 / 3 / 2;
-            float: left;
-            width: 40px;
-
-          }
-          #div4 {
-            grid-area: 2 / 2 / 3 / 4;
-            float: right;
+          /* Fake image */
+          #fakeimg {
+            background-colour: #f1f1f1
+            height:200px;
             width: 100%;
+            box-sizing: border-box;
           }
-          #div5 {
-            grid-area: 3 / 1 / 4 / 4;
+
+          /* Add a card effect for articles */
+          #card {
+            background-color: white;
+            padding: 10px;
+            margin-top: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+            transition: box-shadow 0.2s ease 0s;
+            width: 100%;
+            box-sizing: border-box;
+          }
+
+          /* Clear floats after the columns */
+          #row:after {
+            content: "";
+            display: table;
+            clear: both;
           }
         `}
       </style>
-      <div id="post">
-        <div id="parent">
-          <div id="div1">
-            <div id="div2">
-              {" "}
+      <div id="card">
+        <h2>{" "}
               <Link href={`/post/${post._id}`}>
                 <a
                   style={{
@@ -69,13 +69,8 @@ function Post({ post }) {
                 >
                   <b>{post.title}<br /><br /></b>
                 </a>
-              </Link>
-            </div>
-            <div id="div3">
-            </div>
-            <div id="div4">{post.content}<br /><br /></div>
-            <div id="div5">
-              {" "}
+              </Link></h2>
+        <h5>             {" "}
               <small>
                 {new Date(post.createdAt).toLocaleString("en-GB", {
                   timeZone: "Europe/London",
@@ -95,7 +90,7 @@ function Post({ post }) {
                       color: "black",
                     }}
                   >
-                    <small>{user.name} </small>
+                    <small>{user.name}</small>
                   </a>
                 </Link>
               )}
@@ -111,10 +106,11 @@ function Post({ post }) {
                     &nbsp; - <small>Comments(0)</small>
                   </a>
                 </Link>
-              )}
-            </div>
-          </div>
+              )}</h5>
+        <div>
+          <img id="fakeimg" src={post.postImage} />
         </div>
+        <p>{post.content}</p>
       </div>
       <br />
       <br />
@@ -161,7 +157,8 @@ export function useCommentPages({ postId } = {}) {
   return useSWRInfinite(
     (index, previousPageData) => {
       // reached the end
-      if (previousPageData && previousPageData.comments.length === 0) return null;
+      if (previousPageData && previousPageData.comments.length === 0)
+        return null;
 
       // first page, previousPageData is null
       if (index === 0) {
@@ -175,7 +172,9 @@ export function useCommentPages({ postId } = {}) {
       // before (hence the .getTime() - 1) the last post's createdAt
       const from = new Date(
         new Date(
-          previousPageData.comments[previousPageData.comments.length - 1].CommentCreated
+          previousPageData.comments[
+            previousPageData.comments.length - 1
+          ].CommentCreated
         ).getTime() - 1
       ).toJSON();
 
@@ -189,8 +188,6 @@ export function useCommentPages({ postId } = {}) {
     }
   );
 }
-
-
 
 export default function Posts({ creatorId }) {
   const { data, error, size, setSize } = usePostPages({ creatorId });
@@ -226,7 +223,6 @@ export default function Posts({ creatorId }) {
     </div>
   );
 }
-
 
 export function Comments({ postId }) {
   const { data, error, size, setSize } = usePostPages({ postId });
