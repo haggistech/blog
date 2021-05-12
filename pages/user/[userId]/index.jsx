@@ -12,7 +12,7 @@ import { defaultProfilePicture } from '@/lib/default';
 export default function UserPage({ user }) {
   if (!user) return <Error statusCode={404} />;
   const {
-    name, location, email, bio, profilePicture, usergroup, _id
+    name, location, email, bio, gender, interests, profilePicture, usergroup, _id
   } = user || {};
   const [currentUser] = useCurrentUser();
   const isCurrentUser = currentUser?._id === user._id;
@@ -29,10 +29,11 @@ export default function UserPage({ user }) {
           }
           img {
             width: 10rem;
-            height: auto;
-            border-radius: 50%;
+            height: 10rem;
+            border-radius: 20%;
             box-shadow: rgba(0, 0, 0, 0.05) 0 10px 20px 1px;
             margin-right: 1.5rem;
+            margin-top: 1.5rem;
             background-color: #f3f3f3;
           }
           div {
@@ -51,25 +52,28 @@ export default function UserPage({ user }) {
       <Head>
         <title>{name}</title>
       </Head>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'top' }}>
         <img src={profilePicture || defaultProfilePicture(_id)} width="256" height="256" alt={name} />
         <section>
           <div>
             <h2>{name}</h2>
             {isCurrentUser && (
             <Link href="/settings">
-              <button type="button">Edit</button>
+              <button type="button">Edit Profile</button>
             </Link>
             )}
+            <br />
           </div>
           Location
           <p>{location}</p>
           Bio
           <p>{bio}</p>
-          Email
-          <p>
-            {email}
-          </p>
+          Gender
+          <p>{gender}</p>
+          Interests
+          <p>{interests}</p>
+          Joined
+          <p>{email}</p>
         </section>
       </div>
       <div>

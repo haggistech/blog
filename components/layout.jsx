@@ -167,7 +167,7 @@ export default function Layout({ children }) {
             ) : (
               <>
                 <Link href={`/user/${user._id}`}>
-                  <a><img width="20" height="20" style={{ borderRadius: '50%', objectFit: 'cover', marginRight: '0.5rem' }} src={user.profilePicture} alt={user.name} />{user.name}</a>
+                  <a><img width="20" height="20" style={{ borderRadius: '20%', objectFit: 'cover', marginRight: '0.5rem' }} src={user.profilePicture} alt={user.name} />{user.name}</a>
                 </Link>
                 &nbsp;&nbsp;&nbsp;|
                 <Link href={`#`}>

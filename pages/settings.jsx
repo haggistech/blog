@@ -8,6 +8,8 @@ const ProfileSection = () => {
   const nameRef = useRef();
   const locationRef = useRef();
   const bioRef = useRef();
+  const genderRef = useRef();
+  const interestsRef = useRef();
   const profilePictureRef = useRef();
   const [msg, setMsg] = useState({ message: '', isError: false });
 
@@ -15,6 +17,8 @@ const ProfileSection = () => {
     nameRef.current.value = user?.name;
     locationRef.current.value = user?.location;
     bioRef.current.value = user?.bio;
+    genderRef.current.value = user?.gender;
+    interestsRef.current.value = user?.interests;
   }, [user]);
 
   const handleSubmit = async (event) => {
@@ -26,6 +30,8 @@ const ProfileSection = () => {
     formData.append('name', nameRef.current.value);
     formData.append('location', locationRef.current.value);
     formData.append('bio', bioRef.current.value);
+    formData.append('gender', genderRef.current.value);
+    formData.append('interests', interestsRef.current.value);
     const res = await fetch('/api/user', {
       method: 'PATCH',
       body: formData,
@@ -127,6 +133,29 @@ const ProfileSection = () => {
               type="text"
               placeholder="Bio"
               ref={bioRef}
+            />
+          </label>
+          <label htmlFor="bio">
+            Gender
+            <select 
+            name="gender" 
+            id="gender"
+            placeholder="Gender"
+            ref={genderRef}
+            >
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <label htmlFor="bio">
+            Interests
+            <textarea
+              id="interests"
+              name="interests"
+              type="text"
+              placeholder="Interests"
+              ref={interestsRef}
             />
           </label>
           <label htmlFor="avatar">
