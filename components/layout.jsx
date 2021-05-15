@@ -31,10 +31,21 @@ export default function Layout({ children }) {
               'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
               'Helvetica Neue', sans-serif;
             background-color: #f1f1f1;
-            padding: 20px;
             background: #f1f1f1;
             box-sizing: border-box;
-}
+          }
+          header {
+            width: 100%;
+            height: 100%;
+            background: url(http://www.visitnorwich.co.uk/assets/Uploads/Events-images/Theatre-generic.jpg) center center no-repeat;
+            background-size: cover;
+          }
+          /* Footer */
+          /* Set black background color, white text and some padding */
+          footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
           }
           h2 {
             color: #333;
@@ -87,42 +98,46 @@ export default function Layout({ children }) {
           header {
             border-bottom: 1px solid #d8d8d8;
           }
-          nav {
-            max-width: 1040px;
-            margin: auto;
-            padding: 1rem 2rem;
+          .hero-image {
+            /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("header.png");
+          
+            /* Set a specific height */
+            height: 300px;
+          
+            /* Position and center the image to scale nicely on all screens */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
           }
-          nav div {
-            float: right;
+          .hero-text {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
           }
-          nav div a {
-            font-size: 0.9rem;
-            margin-left: 1rem;
-          }
-          nav h1 {
-            font-size: 1rem;
-            color: #444;
-            margin: 0;
-            font-weight: 700;
-            float: left;
-          }
-          nav:after {
-            content: '';
-            clear: both;
-            display: table;
+          .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
           }
           main {
             padding: 1rem;
             max-width: 1040px;
             margin: 0 auto;
           }
-          /* Footer */
-          .footer {
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 8px;
-          }
+
+.circle {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  background: #000
+}
         `}
       </style>
       <Head>
@@ -131,10 +146,6 @@ export default function Layout({ children }) {
           key="viewport"
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <meta
-          name="description"
-          content="nextjs-mongodb-app is a continously developed app built with Next.JS and MongoDB. This project goes further and attempts to integrate top features as seen in real-life apps."
         />
         <meta property="og:title" content="Miks Blog" />
         <meta
@@ -145,49 +156,73 @@ export default function Layout({ children }) {
           property="og:image"
           content="https://repository-images.githubusercontent.com/201392697/5d392300-eef3-11e9-8e20-53310193fbfd"
         />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css " />
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       </Head>
       <header>
-        <nav>
-        
-          <Link href="/">
-            <a>
-            <img width="75" height="75" src="/logo.png" />
-            </a>
-          </Link>
-          <div>
-            {!user ? (
+      <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <div class="circle">MB<a class="navbar-brand" href="#"></a></div>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      
+      {!user ? (
               <>
                 <Link href="/login">
-                  <a>Sign in</a>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </Link>
+                
                 <Link href="/signup">
-                  <a>Sign up</a>
+                  <li><a><span class="glyphicon glyphicon-leaf"></span> Sign up</a></li>
                 </Link>
               </>
             ) : (
               <>
                 <Link href={`/user/${user._id}`}>
-                  <a><img width="20" height="20" style={{ borderRadius: '20%', objectFit: 'cover', marginRight: '0.5rem' }} src={user.profilePicture} alt={user.name} />{user.name}</a>
+                  <li><a><img width="20" height="20" style={{ borderRadius: '20%', objectFit: 'cover', marginRight: '0.5rem' }} src={user.profilePicture} alt={user.name} />{user.name}</a></li>
                 </Link>
                 &nbsp;&nbsp;&nbsp;|
                 <Link href={`#`}>
-                <a>{user.usergroup} menu</a>
+                <li><a>{user.usergroup} menu</a></li>
                 </Link>
                 &nbsp;&nbsp;&nbsp;|
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a tabIndex={0} role="button" onClick={handleLogout}>
-                Logout
-                </a>
+                <li><a tabIndex={0} role="button" onClick={handleLogout}>
+                <span class="glyphicon glyphicon-log-out"></span> Logout
+                </a></li>
               </>
             )}
-          </div>
+
+
+        
+      </ul>
+    </div>
+  </div>
+
         </nav>
+        <div class="hero-image">
+</div>
       </header>
 
       <main>{children}</main>
-      <div class="footer">
-  <h2>c/o Mik (Haggistech)</h2>
-</div>
+      <footer class="container-fluid text-center">
+  <p>c/o Mik (Haggistech)</p>
+</footer>
+
     </>
   );
 };
