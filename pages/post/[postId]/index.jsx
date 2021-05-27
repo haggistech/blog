@@ -11,7 +11,7 @@ import { useUser } from '@/hooks/index';
 
 export default function PostPage({ post, comments}) {
   if (!post) return <Error statusCode={404} />;
-  const { title, content, _id } = post || {};
+  const { title, content, postImage, _id } = post || {};
   const { postId, creatorId, comment, CommentCreated } = comments || {};
   const user = useUser(post.creatorId);
   const [currentUser] = useCurrentUser();
@@ -29,14 +29,7 @@ export default function PostPage({ post, comments}) {
           button {
             margin: 0 0.25rem;
           }
-          img {
-            width: 10rem;
-            height: auto;
-            border-radius: 50%;
-            box-shadow: rgba(0, 0, 0, 0.05) 0 10px 20px 1px;
-            margin-right: 1.5rem;
-            background-color: #f3f3f3;
-          }
+
           div {
             color: #777;
           }
@@ -65,6 +58,14 @@ export default function PostPage({ post, comments}) {
             width: 80%;
             float: right;
           }
+          #hero {
+            background-colour: #f1f1f1
+            height:200px;
+            width: 100%;
+            box-sizing: border-box;
+            padding-bottom: 20px;
+          }
+          }
           small {
             color: #777;
           }
@@ -83,6 +84,8 @@ export default function PostPage({ post, comments}) {
           </Link>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <section>
+
+          <img id="hero" src={post.postImage} />
 
             <h2>{title}</h2>
 
