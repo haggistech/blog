@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from 'react';
 import { useSWRInfinite } from "swr";
 import Link from "next/link";
 import { useUser } from "@/hooks/index";
 import fetcher from "@/lib/fetch";
-import { defaultProfilePicture } from "@/lib/default";
+import { useCurrentUser } from '@/hooks/index';
+import { defaultProfilePicture } from '@/lib/default';
+import PostEditor from './editor';
 
 function Post({ post }) {
+  const [edit, setEdit] = useState(false);
+  const [content, setContent] = useState(post.content);
+  const [msg, setMsg] = useState('');
   const user = useUser(post.creatorId);
+  const [currUser] = useCurrentUser();
+  const makeEdit = (msg, text) => {
+    setEdit(false);
+    setMsg(msg);
+    setTimeout(() => setMsg(null), 1500);
+    if (text) setContent(text);
+  };
   return (
     <>
       <style jsx>
@@ -65,6 +77,8 @@ function Post({ post }) {
         `}
       </style>
       <div id="card">
+        
+      <p style={{ color: '#0070f3', textAlign: 'center' }}>{msg}</p>
         <h2>{" "}
               <Link href={`/post/${post._id}`}>
                 <a
@@ -83,7 +97,9 @@ function Post({ post }) {
                   timeZone: "Europe/London",
                 })}{" "}
                 -{" "}
-                <span role="img" aria-label="Edit">
+                <span role="img" aria-label="Edit" onClick={() => {
+              setEdit(!edit);
+            }}>>
                   📝
                 </span>{" "}
                 - Posted By:{" "}
@@ -117,7 +133,12 @@ function Post({ post }) {
         <div>
           <img id="fakeimg" src={post.postImage} />
         </div>
+        {edit === true ? (
+          <PostEditor edit={edit} makeEdit={makeEdit} text={content} Id={post._id} />
+        ) : (
         <p id="content">{post.content}</p>
+        )}
+
       </div>
       <br />
       <br />
