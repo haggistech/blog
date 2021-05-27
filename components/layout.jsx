@@ -37,11 +37,12 @@ export default function Layout({ children }) {
           }
 
           /* Footer */
-          /* Set black background color, white text and some padding */
           footer {
             background-color: #333;
             color: white;
             padding: 15px;
+            height: 150px;
+            position: relative;
           }
           h2 {
             color: #333;
@@ -100,7 +101,7 @@ export default function Layout({ children }) {
                 rgba(0, 0, 0, 0.5),
                 rgba(0, 0, 0, 0.5)
               ),
-              url("header.png");
+              url("./header.png");
 
             /* Set a specific height */
             height: 300px;
@@ -126,7 +127,11 @@ export default function Layout({ children }) {
           main {
             padding: 1rem;
             max-width: 1040px;
+            height: 100%;
             margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
           }
 
           .circle {
