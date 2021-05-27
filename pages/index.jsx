@@ -20,7 +20,6 @@ const IndexPage = () => {
         `}
       </style>
       <div style={{ marginBottom: '2rem' }}>
-        <p>Hello, Welcome to Miks Blog</p>
       </div>
       <div>
         <PostEditor />

@@ -36,6 +36,7 @@ function Post({ post }) {
             height:200px;
             width: 100%;
             box-sizing: border-box;
+            padding-bottom: 20px;
           }
 
           /* Add a card effect for articles */
@@ -45,6 +46,12 @@ function Post({ post }) {
             margin-top: 10px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
             transition: box-shadow 0.2s ease 0s;
+            width: 100%;
+            box-sizing: border-box;
+          }
+          #content {
+            padding-left: 10px;
+            padding-right: 10px;
             width: 100%;
             box-sizing: border-box;
           }
@@ -110,7 +117,7 @@ function Post({ post }) {
         <div>
           <img id="fakeimg" src={post.postImage} />
         </div>
-        <p>{post.content}</p>
+        <p id="content">{post.content}</p>
       </div>
       <br />
       <br />
