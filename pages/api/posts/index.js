@@ -35,7 +35,9 @@ handler.patch(async (req, res) => {
   if (!req.body.content) return res.status(400).send('You must write something');
 
   const post = await editPost(req.db, {
+    title: req.body.title,
     content: req.body.content,
+    postImage: req.body.postImage,
     postId: req.body.postId,
   });
 
@@ -53,6 +55,7 @@ handler.post(async (req, res) => {
   const post = await insertPost(req.db, {
     title: req.body.title,
     content: req.body.content,
+    postImage: req.body.postImage,
     creatorId: req.user._id,
   });
 

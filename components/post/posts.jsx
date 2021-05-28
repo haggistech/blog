@@ -9,13 +9,17 @@ import PostEditor from './editor';
 
 function Post({ post }) {
   const [edit, setEdit] = useState(false);
+  const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
+  const [postImage, setpostImage] = useState(post.postImage);
   const [msg, setMsg] = useState('');
   const user = useUser(post.creatorId);
   const [currUser] = useCurrentUser();
-  const makeEdit = (msg, text) => {
+  const makeEdit = (msg, title, text) => {
     setEdit(false);
     setMsg(msg);
+    setTitle(title);
+    setpostImage(postImage);
     setTimeout(() => setMsg(null), 1500);
     if (text) setContent(text);
   };
@@ -99,7 +103,7 @@ function Post({ post }) {
                 -{" "}
                 <span role="img" aria-label="Edit" onClick={() => {
               setEdit(!edit);
-            }}>>
+            }}>
                   📝
                 </span>{" "}
                 - Posted By:{" "}
@@ -134,7 +138,7 @@ function Post({ post }) {
           <img id="fakeimg" src={post.postImage} />
         </div>
         {edit === true ? (
-          <PostEditor edit={edit} makeEdit={makeEdit} text={content} Id={post._id} />
+          <PostEditor edit={edit} makeEdit={makeEdit} title={title} text={content} postImage={postImage} Id={post._id} />
         ) : (
         <p id="content">{post.content}</p>
         )}
