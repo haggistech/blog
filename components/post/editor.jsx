@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useCurrentUser, adminUser } from "@/hooks/index";
 
-export default function PostEditor({ edit, makeEdit, text, Id }) {
+export default function PostEditor({ edit, makeEdit, title, text, postImage, Id }) {
   const [user] = useCurrentUser();
 
   const [msg, setMsg] = useState(null);
@@ -25,7 +25,9 @@ export default function PostEditor({ edit, makeEdit, text, Id }) {
     e.preventDefault();
     if (edit === true) {
       const body = {
+        title: e.currentTarget.title.value,
         content: e.currentTarget.content.value,
+        postImage: e.currentTarget.postImage.value,
         postId: Id,
       };
       // if (!e.currentTarget.content.value) return;
@@ -41,7 +43,9 @@ export default function PostEditor({ edit, makeEdit, text, Id }) {
       }
     } else {
       const body = {
+        title: e.currentTarget.title.value,
         content: e.currentTarget.content.value,
+        postImage: e.currentTarget.postImage.value,
       };
       if (!e.currentTarget.content.value) return;
       e.currentTarget.content.value = "";
@@ -52,6 +56,7 @@ export default function PostEditor({ edit, makeEdit, text, Id }) {
       });
       if (res.ok) {
         setMsg("Posted!");
+        window.location.reload( false );
         setTimeout(() => setMsg(null), 5000);
       }
     }
@@ -65,34 +70,26 @@ export default function PostEditor({ edit, makeEdit, text, Id }) {
         onReset={discard}
         style={{ flexDirection: 'row' }}
         autoComplete="off">
-        <label htmlFor="name">
-          {edit === true ? (
-            <input
-              name="content"
-              type="text"
-              placeholder={text}
-              defaultValue={text}
-            />
+
+        {edit === true ? (
+                  <label htmlFor="name">
+            <input name="title" type="text" placeholder={title} defaultValue={title} />
+            <input name="content" type="text" placeholder={text} defaultValue={text} />
+            <input name="postImage" type="text" placeholder={postImage} defaultValue={postImage} />
+            </label>
           ) : (
-            <input
-              name="content"
-              type="text"
-              placeholder="Say something, I'm giving up on you..."
-            />
+            <label htmlFor="name">
+            <input name="title" type="text" placeholder="Enter a Title" />
+            <input name="content" type="text" placeholder="Say something, I'm giving up on you..." />
+            <input name="postImage" type="text" placeholder="Image URL" />
+            </label>
           )}
-        </label>
+
         <button type="submit" style={{ marginLeft: "0.5rem" }}>
           {edit === true ? "Update" : "Post"}
         </button>
         {edit === true ? (
-          <button
-            type="reset"
-            style={{
-              marginLeft: "0.5rem",
-              backgroundColor: "white",
-              color: "black",
-            }}
-          >
+          <button type="reset" style={{ marginLeft: "0.5rem", backgroundColor: "white", color: "black" }}>
             Discard
           </button>
         ) : null}

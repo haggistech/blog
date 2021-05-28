@@ -17,14 +17,16 @@ export async function getPosts(db, from = new Date(), by, limit) {
     .toArray();
 }
 
-export async function editPost(db, { content, postId }) {
+export async function editPost(db, { title, content, postImage, postId }) {
   return db
     .collection('posts')
     .findOneAndUpdate(
       { _id: postId },
       {
         $set: {
+          title,
           content,
+          postImage,
         },
       },
       { returnOriginal: false },
@@ -33,11 +35,12 @@ export async function editPost(db, { content, postId }) {
 }
 
 
-export async function insertPost(db, { title, content, creatorId }) {
+export async function insertPost(db, { title, content, postImage, creatorId }) {
   return db.collection('posts').insertOne({
     _id: nanoid(12),
     title,
     content,
+    postImage,
     creatorId,
     createdAt: new Date(),
   }).then(({ ops }) => ops[0]);
