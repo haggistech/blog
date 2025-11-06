@@ -15,13 +15,13 @@ function Post({ post }) {
   const [msg, setMsg] = useState('');
   const user = useUser(post.creatorId);
   const [currUser] = useCurrentUser();
-  const makeEdit = (msg, title, text) => {
+  const makeEdit = (msg, newTitle, newContent, newPostImage) => {
     setEdit(false);
     setMsg(msg);
-    setTitle(title);
-    setpostImage(postImage);
+    if (newTitle) setTitle(newTitle);
+    if (newContent) setContent(newContent);
+    if (newPostImage) setpostImage(newPostImage);
     setTimeout(() => setMsg(null), 1500);
-    if (text) setContent(text);
   };
   return (
     <>
@@ -48,7 +48,7 @@ function Post({ post }) {
           }
           /* Fake image */
           #fakeimg {
-            background-colour: #f1f1f1
+            background-color: #f1f1f1;
             height:200px;
             width: 100%;
             box-sizing: border-box;
@@ -100,12 +100,16 @@ function Post({ post }) {
                 {new Date(post.createdAt).toLocaleString("en-GB", {
                   timeZone: "Europe/London",
                 })}{" "}
-                -{" "}
-                <span role="img" aria-label="Edit" onClick={() => {
-              setEdit(!edit);
-            }}>
-                  📝
-                </span>{" "}
+                {currUser && currUser.usergroup === "Admin" && (
+                  <>
+                    -{" "}
+                    <span role="img" aria-label="Edit" onClick={() => {
+                      setEdit(!edit);
+                    }} style={{ cursor: "pointer" }}>
+                      📝
+                    </span>{" "}
+                  </>
+                )}
                 - Posted By:{" "}
               </small>
               {user && (

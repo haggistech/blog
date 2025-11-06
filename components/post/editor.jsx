@@ -17,11 +17,11 @@ export default function PostEditor({ edit, makeEdit, title, text, postImage, Id 
     makeEdit();
   };
 
-  if (user.usergroup != "Admin") {
+  if (user.usergroup !== "Admin") {
     return <div></div>;
   }
 
-  async function hanldeSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (edit === true) {
       const body = {
@@ -37,9 +37,10 @@ export default function PostEditor({ edit, makeEdit, title, text, postImage, Id 
         body: JSON.stringify(body),
       });
       if (res.ok) {
-        makeEdit("Edited!", body.content);
+        makeEdit("Edited!", body.title, body.content, body.postImage);
       } else {
-        makeEdit(res.text(), text);
+        const errorMsg = await res.text();
+        makeEdit(errorMsg, title, text, postImage);
       }
     } else {
       const body = {
@@ -66,7 +67,7 @@ export default function PostEditor({ edit, makeEdit, title, text, postImage, Id 
     <>
       <p style={{ color: "#0070f3", textAlign: "center" }}>{msg}</p>
       <form
-        onSubmit={hanldeSubmit}
+        onSubmit={handleSubmit}
         onReset={discard}
         style={{ flexDirection: 'row' }}
         autoComplete="off">

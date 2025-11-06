@@ -32,6 +32,11 @@ handler.patch(async (req, res) => {
     return res.status(401).send('unauthenticated');
   }
 
+  // Check if user is admin
+  if (req.user.usergroup !== 'Admin') {
+    return res.status(403).send('You do not have permission to edit posts');
+  }
+
   if (!req.body.content) return res.status(400).send('You must write something');
 
   const post = await editPost(req.db, {
@@ -60,23 +65,6 @@ handler.post(async (req, res) => {
   });
 
   return res.json({ post });
-});
-
-handler.get(async (req, res) => {
-  const posts = await getComments(
-    req.db,
-    req.query.from ? new Date(req.query.from) : undefined,
-    req.query.by,
-    req.query.limit ? parseInt(req.query.limit, 10) : undefined,
-  );
-
-  if (req.query.from && comments.length > 0) {
-    // This is safe to cache because from defines
-    //  a concrete range of posts
-    res.setHeader('cache-control', `public, max-age=${maxAge}`);
-  }
-
-  res.send({ comments });
 });
 
 export default handler;
